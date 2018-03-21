@@ -136,14 +136,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
   }
 
   toggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen }, () => {
-      const { isModalOpen } = this.state;
-      if (isModalOpen) {
-        this.props.onOpenedTooltipMenu && this.props.onOpenedTooltipMenu();
-      } else {
-        this.props.onClosedTooltipMenu && this.props.onClosedTooltipMenu();
-      }
-    });
+    this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
   openModal = () => {
@@ -156,6 +149,14 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
     this.setState({ willPopUp: false });
     this.showZoomingOutAnimation();
     this.props.onCloseTooltipMenu && this.props.onCloseTooltipMenu();
+  }
+
+  onShow = () => {
+    this.props.onOpenedTooltipMenu && this.props.onOpenedTooltipMenu(); 
+  }
+
+  onDismiss = () => {
+    this.props.onClosedTooltipMenu && this.props.onClosedTooltipMenu();
   }
 
   onPressItem = (userCallback: () => void) => {
@@ -313,6 +314,8 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
         <Modal
           visible={this.state.isModalOpen}
           onRequestClose={this.props.onRequestClose}
+          onShow={this.onShow}
+          onDismiss={this.onDismiss}
           transparent
         >
           <Animated.View style={[
