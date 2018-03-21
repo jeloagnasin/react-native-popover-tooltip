@@ -89,6 +89,8 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
     delayLongPress: PropTypes.number,
     onOpenTooltipMenu: PropTypes.func,
     onCloseTooltipMenu: PropTypes.func,
+    onOpenedTooltipMenu: PropTypes.func,
+    onClosedTooltipMenu: PropTypes.func,
     onPress: PropTypes.func,
     componentContainerStyle: ViewPropTypes.style,
     timingConfig: PropTypes.object,
