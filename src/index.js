@@ -41,6 +41,8 @@ type Props = {
   delayLongPress: number,
   onOpenTooltipMenu?: () => void,
   onCloseTooltipMenu?: () => void,
+  onOpenedTooltipMenu?: () => void,
+  onClosedTooltipMenu?: () => void,
   onPress?: () => void,
   componentContainerStyle?: StyleObj,
   timingConfig?: { duration?: number },
@@ -134,7 +136,14 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
   }
 
   toggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
+    this.setState({ isModalOpen: !this.state.isModalOpen }, () => {
+      const { isModalOpen } = this.state;
+      if (isModalOpen) {
+        this.props.onOpenedTooltipMenu && this.props.onOpenedTooltipMenu();
+      } else {
+        this.props.onClosedTooltipMenu && this.props.onClosedTooltipMenu();
+      }
+    });
   }
 
   openModal = () => {
